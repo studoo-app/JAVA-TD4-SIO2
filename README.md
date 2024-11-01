@@ -11,7 +11,8 @@ Finir d'implémenter une authentification persistante dans l'application dont le
 
 ## Missions
 
+- Permettre de s'inscrire dans l'application
 - Retrouver l'utilisateur en base de données depuis le formulaire de connexion
 - Trouver un moyen de stocker l'utilisateur connecté
 - Implémenter un moyen de déconnecter l'utilisateur
-- Trouver un moyen de sécuriser les mots de passes utilisateurs contenus pour le moment en clair dans la base de données
+- Implémenter un niveau de sécurité suffisant pour la gestion des mots de passe

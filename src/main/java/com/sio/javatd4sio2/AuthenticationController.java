@@ -1,7 +1,5 @@
 package com.sio.javatd4sio2;
 
-import com.sio.javatd4sio2.services.UserService;
-import com.sio.javatd4sio2.tools.ConfigManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,12 +22,8 @@ public class AuthenticationController {
 
     @FXML
     public void btnAuthenticateClicked(ActionEvent event) {
-        if (inputEmail.getText().isEmpty() || pwdPassword.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Empty Fields");
-            alert.setContentText("Please fill in all fields");
-            alert.showAndWait();
+        if (!validInputs()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid Inputs", "Please fill in all fields.");
             return;
         }
 
@@ -40,6 +33,30 @@ public class AuthenticationController {
         System.out.println("Password: " + pwdPassword.getText());
 
         // Open dashboard
+        showDashboard();
+
+
+        // Récupérer le stage actuel via le bouton cliqué
+        Stage authStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        authStage.close(); // Fermer la fenêtre
+    }
+
+    @FXML
+    public void btnRegisterClicked(ActionEvent event) {
+        if (!validInputs()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Invalid Inputs", "Please fill in all fields.");
+            return;
+        }
+
+        // Authenticate
+        System.out.println("Initializing Registration...");
+        System.out.println("Email: " + inputEmail.getText());
+        System.out.println("Password: " + pwdPassword.getText());
+
+        showAlert(Alert.AlertType.INFORMATION, "Registration", "Success", "User registered successfully.");
+    }
+
+    private void showDashboard() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("dashboard.fxml"));
             Parent root = fxmlLoader.load();
@@ -47,16 +64,23 @@ public class AuthenticationController {
             controller.init();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("VeliKo Admin - Dashboard");
+            stage.setTitle("Auth Demo - Dashboard");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    private boolean validInputs(){
+        return !inputEmail.getText().isEmpty() && !pwdPassword.getText().isEmpty();
+    }
 
-        // Récupérer le stage actuel via le bouton cliqué
-        Stage authStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        authStage.close(); // Fermer la fenêtre
+    private void showAlert(Alert.AlertType alertType, String title, String header, String content){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
