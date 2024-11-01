@@ -4,6 +4,7 @@ module com.sio.javatd4sio2 {
     requires mysql.connector.java;
     requires java.sql;
     requires java.naming;
+    requires de.mkammerer.argon2.nolibs;
 
 
     opens com.sio.javatd4sio2 to javafx.fxml;

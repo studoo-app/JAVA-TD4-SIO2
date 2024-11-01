@@ -1,5 +1,6 @@
 package com.sio.javatd4sio2;
 
+import com.sio.javatd4sio2.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ public class AuthenticationController {
     @FXML
     private PasswordField pwdPassword;
 
+    private UserService userService = new UserService();
+
     @FXML
     public void btnAuthenticateClicked(ActionEvent event) {
         if (!validInputs()) {
@@ -31,6 +34,16 @@ public class AuthenticationController {
         System.out.println("Initializing authentication...");
         System.out.println("Email: " + inputEmail.getText());
         System.out.println("Password: " + pwdPassword.getText());
+
+        // Version 1 : No Hashing Method
+        //this.userService.authenticate(inputEmail.getText(), pwdPassword.getText());
+
+        // Version 2 : Hashing Delegated to DB Method
+        //this.userService.authenticateWithDbHashing(inputEmail.getText(), pwdPassword.getText());
+
+        // Version 3 : Argon Hashing Method
+        this.userService.authenticateWithArgonHashing(inputEmail.getText(), pwdPassword.getText());
+
 
         // Open dashboard
         showDashboard();
@@ -52,6 +65,15 @@ public class AuthenticationController {
         System.out.println("Initializing Registration...");
         System.out.println("Email: " + inputEmail.getText());
         System.out.println("Password: " + pwdPassword.getText());
+
+        // Version 1 : No Hashing Method
+        //this.userService.createUser(inputEmail.getText(), pwdPassword.getText());
+
+        // Version 2 : Hashing Delegated to DB Method
+        //this.userService.createUserWithDbHashing(inputEmail.getText(), pwdPassword.getText());
+
+        // Version 34 : Argon Hashing Method
+        this.userService.createUserWithArgonHashing(inputEmail.getText(), pwdPassword.getText());
 
         showAlert(Alert.AlertType.INFORMATION, "Registration", "Success", "User registered successfully.");
     }

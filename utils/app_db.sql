@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS `user` (
     UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES
-    (1, 'michel@mail.Dev', '["ROLE_ADMIN"]', 'password');
+-- INSERT INTO `user` (`id`, `email`, `roles`, `password`) VALUES
+--     (1, 'michel@mail.Dev', '["ROLE_ADMIN"]', 'password');

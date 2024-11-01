@@ -9,8 +9,12 @@ public class DashboardController {
     @FXML
     private Label lblAuthenticatedUser;
 
-    public void init() {
+    private final ConfigManager cm = new ConfigManager();
 
+    public void init() {
+        String email = cm.getProperty("user.email");
+        String id = cm.getProperty("user.id");
+        lblAuthenticatedUser.setText(id +" / " +email);
         System.out.println("Dashboard initialized");
     }
 }

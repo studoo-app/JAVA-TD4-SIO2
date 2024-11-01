@@ -1,6 +1,6 @@
 package com.sio.javatd4sio2;
 
-import com.sio.javatd4sio2.tools.ConfigManager;
+import com.sio.javatd4sio2.services.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AuthDemoApplication extends Application {
+
+    private UserService userService = new UserService();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -23,4 +25,9 @@ public class AuthDemoApplication extends Application {
         launch();
     }
 
+    @Override
+    public void stop() throws Exception {
+        this.userService.clearUserFromStorage();
+        super.stop();
+    }
 }
